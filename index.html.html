@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Safety System - Geofencing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <h2>GeoShield</h2>
+            </div>
+
+            <div class="card status-card">
+                <h3>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Safety Status
+                </h3>
+                <div class="status-indicator">
+                    <span class="status-dot green" id="status-dot"></span>
+                    <span id="status-text" style="color: var(--primary-green);">Inside Safe Zone</span>
+                </div>
+            </div>
+
+            <div class="card coordinates-card" id="coordinates-card">
+                <h3>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Live Tracker
+                </h3>
+                <div class="coordinate-row">
+                    <span>LATITUDE</span>
+                    <span id="lat-val">40.712800</span>
+                </div>
+                <div class="coordinate-row">
+                    <span>LONGITUDE</span>
+                    <span id="lng-val">-74.006000</span>
+                </div>
+            </div>
+
+            <div class="card legend">
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:var(--primary-green); box-shadow: 0 0 8px var(--primary-green);"></div>
+                    <span>Safe Users</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:var(--primary-blue); box-shadow: 0 0 8px var(--primary-blue);"></div>
+                    <span>Tracked User (Inside)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:var(--primary-red); box-shadow: 0 0 8px var(--primary-red);"></div>
+                    <span>Alert / Breach</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-circle"></div>
+                    <span>Safe Boundary</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Map Area -->
+        <main class="map-container" id="map-container">
+            <div class="grid-overlay"></div>
+            <div class="map-fade"></div>
+            
+            <div class="geofence-circle" id="geofence-circle">
+                <div class="radar-scan"></div>
+                <span class="geofence-label" id="geofence-label">Safe Zone</span>
+            </div>
+            
+            <!-- Safe Users -->
+            <div style="position: absolute; top: calc(50% - 60px); left: calc(50% + 70px); z-index: 5;">
+                <div class="dot safe-dot"><div class="ping"></div></div>
+            </div>
+            <div style="position: absolute; top: calc(50% + 100px); left: calc(50% - 40px); z-index: 5;">
+                <div class="dot safe-dot" style="animation-duration: 5s;"><div class="ping" style="animation-duration: 2.2s;"></div></div>
+            </div>
+            <div style="position: absolute; top: calc(50% - 90px); left: calc(50% - 110px); z-index: 5;">
+                <div class="dot safe-dot" style="animation-duration: 7s;"><div class="ping" style="animation-duration: 1.8s;"></div></div>
+            </div>
+            
+            <!-- Monitored Target -->
+            <div class="dot target-dot" id="target-dot">
+                <div class="ping"></div>
+            </div>
+
+            <!-- Alert Notification -->
+            <div class="alert-popup" id="alert-popup">
+                <div class="alert-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                        <line x1="12" y1="9" x2="12" y2="13"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                </div>
+                <div class="alert-content">
+                    <div class="alert-title">⚠ Boundary Breached!</div>
+                    <div class="alert-desc">Location Shared with Emergency Contacts</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
